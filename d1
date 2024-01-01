@@ -1,24 +1,24 @@
  
-int fun(string str1,int n)
-    {
-        int ans = -1;
-        for(int i=0;i<n;i++)
+int findContentChildren(vector<int>& g, vector<int>& s) {
+        
+        sort(s.begin(),s.end());  //this sorting is must.
+        sort(g.begin(),g.end());
+        int m = g.size();int n = s.size();
+        int i=0,j=0;
+        int ans = 0;
+        while(i<m and j<n)
         {
-            for(int j=i+1;j<n;j++)
+            if(g[i]<=s[j])
             {
-                string str = str1.substr(i,j);
-                if(str1[i] == str1[j])
-                {
-                    ans = max(ans,j-i+1);
-                }
+                ans++;
+                i++;
+                j++;
             }
+            else
+            {
+                j++;
+            }
+            
         }
-        return (ans != -1)?ans-2:ans;
-        
-    }
-    int maxLengthBetweenEqualCharacters(string s) {
-        
-        
-        return fun(s,s.length());
-        
+        return ans;
     }
