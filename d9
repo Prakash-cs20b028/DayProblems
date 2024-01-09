@@ -1,0 +1,24 @@
+void fun(TreeNode *root1,vector<int> &vec1)
+    {
+        //Base case
+        if(root1 == NULL)
+        {
+            return;
+        }
+        if(root1->left == NULL and root1->right == NULL)
+        {
+            vec1.push_back(root1->val);
+        }
+        else
+        {
+            fun(root1->left,vec1);
+            fun(root1->right,vec1);
+        }
+    }
+    bool leafSimilar(TreeNode* root1, TreeNode* root2) {
+        vector<int> vec1,vec2;
+        
+        fun(root1,vec1);
+        fun(root2,vec2);
+        return (vec1==vec2)?true:false;
+    } 
