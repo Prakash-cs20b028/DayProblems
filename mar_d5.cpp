@@ -1,35 +1,30 @@
-int bagOfTokensScore(vector<int>& arr, int power) {
-        sort(arr.begin(),arr.end());
+int minimumLength(string s) {
 
-        int n = arr.size();
-        if(n==1)
+    int n = s.length();
+    int i = 0, j = n - 1, ans = 0;
+    string str = s;
+    if(n==1){return 1;}
+    while (i < j) 
+    {
+        if (str[i] != str[j]) 
         {
-            if(power<arr[0])
-            {
-                return 0;
-            }
-        }
-        int i=0,j=n-1,s=0,ans=0;
-        while(i<=j)
+            ans = max(ans,j - i + 1);
+            break;
+        } 
+        else 
         {
-            if(power>=arr[i])
+            while (i < j && str[i] == str[i + 1]) 
             {
-                power -= arr[i];
-                s++;
-                ans = max(ans,s);
                 i++;
             }
-            else if(s>0)
+            while (i < j && str[j] == str[j - 1]) 
             {
-                s--;
-                power += arr[j];
                 j--;
-                ans = max(ans,s);
-            }
-            else
-            {
-                return 0;
             }
         }
-        return ans;
+        i++;
+        j--;
+        if(i==j){return 1;}
     }
+    return ans;
+    } 
