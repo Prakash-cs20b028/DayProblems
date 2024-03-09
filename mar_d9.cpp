@@ -1,21 +1,23 @@
-int maxFrequencyElements(vector<int>& nums) {
-        
-        unordered_map<int,int>mp;
-        for(int i=0;i<nums.size();i++)
+int getCommon(vector<int>& nums1, vector<int>& nums2) {
+        //use the merging technique
+        int n1 = nums1.size();
+        int n2 = nums2.size();
+        int ans = -1;
+        int i=0,j=0;
+        while(i<n1 and j<n2)
         {
-            mp[nums[i]]++;
-        }
-        int maxi = 0,ans=0;
-        for(auto it:mp)
-        {
-            maxi = max(maxi,it.second);
-
-        }
-        for(auto it:mp)
-        {
-            if(maxi == it.second)
+            if(nums1[i]>nums2[j])
             {
-                ans += maxi;
+                j++;
+            }
+            else if(nums1[i]<nums2[j])
+            {
+                i++;
+            }
+            else
+            {
+                ans = nums1[i];
+                break;
             }
         }
         return ans;
