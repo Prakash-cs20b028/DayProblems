@@ -1,23 +1,54 @@
- 
-bool isToepliz(vector<vector<int>>& mat) {
+int t[501][501]; // this line used in memoisation
     
-    int n = mat.size();
-    int m = mat[0].size();
-    
-    int ele = mat[0][0];
-    for(int i=0;i<n;i++)
+    void LPS(string str1,string str2)
     {
-        for(int j=0;j<m;j++)
+        //initialisation
+        int n = str1.length();
+        for(int i=0;i<=n;i++)
         {
-            if(i==j)
+            for(int j=0;j<=n;j++)
             {
-                if(mat[i][j] != ele)
+                if(i==0 or j==0)
                 {
-                    return false;
+                    t[i][j] = 0;
                 }
             }
-            
+        }
+        
+        //implementation
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=n;j++)
+            {
+                if(str1[i-1] == str2[j-1])
+                {
+                    t[i][j] = 1 + t[i-1][j-1];
+                }
+                else
+                {
+                    t[i][j] = max(t[i-1][j],t[i][j-1]);
+                }
+            }
+        }
+        for(int i=0;i<=n;i++)
+        {
+            for(int j=0;j<=n;j++)
+            {
+                cout<<t[i][j]<<" ";
+            }
+            cout<<endl;
         }
     }
-    return true;
-}
+    int countMin(string str){
+        
+        int n = str.length();
+        string str1 = str;
+        reverse(str.begin(),str.end());
+        
+        //string str2(str.begin(),str.end());
+        
+        // cout<<str1<<" "<<str;
+        LPS(str1,str);
+        
+        return n-t[n][n];
+    } 
